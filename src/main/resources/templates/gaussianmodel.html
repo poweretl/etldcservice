@@ -1,0 +1,118 @@
+<!doctype html>
+<html lang="en">
+
+<head th:replace="fragments/_header :: header"></head>
+
+<body>
+
+ <!-- Nav bar -->
+ <div th:replace="fragments/_navbar :: topNavBar"></div>
+
+ <div class="container-fluid">
+  <div class="row">
+
+   <!--side bar -->
+   <div th:replace="fragments/_sidenavbar :: sideNavBar"></div>
+
+   <!-- main content -->
+   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+   <!-- main nav bar -->
+   <div th:replace="fragments/_topnav :: topNav"></div>
+
+   <div class="row border border-secondary">
+
+<!--     <div class="col-sm-6 border border-secondary"> -->
+<!--      <div class=row> -->
+<!--       <canvas class="my-4 w-100" id="myChart" width="900" height="200"></canvas> -->
+<!--      </div> -->
+<!--      <div class=row> -->
+<!--       <h4>Section title</h4> -->
+<!--       <div th:replace="fragments/_table :: dashtable"></div> -->
+<!--      </div> -->
+<!--     </div> -->
+
+    <div class="col-sm-12 border border-secondary">
+     <div class=row>
+     <div class="col-sm-12 border border-secondary">
+     
+     <p class="h5 bg-primary text-white">
+     Trained Model Statistical Summary
+     </p>
+      <table id="gaussianClfSummary" class="display compact">
+       <thead>
+        <tr>
+         <th>No.</th>
+         <th>Feature Name</th>
+         <th>Count</th>
+         <th>Std.Dev.</th>
+         <th>Mean</th>
+         <th>Min</th>
+         <th>Max</th>
+         <th>25%</th>
+         <th>50%</th>
+         <th>75%</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr th:each="pd,status : ${pandaDescribe}">
+         <td th:text="${status.index + 1}"></td>
+         <td th:text="${pd.mapKey}"></td>
+         <td th:text="${pd.count}"></td>
+         <td th:text="${pd.std}"></td>
+         <td th:text="${pd.mean}"></td>
+         <td th:text="${pd.min}"></td>
+         <td th:text="${pd.max}"></td>
+         <td th:text="${pd.percent_25}"></td>
+         <td th:text="${pd.percent_50}"></td>
+         <td th:text="${pd.percent_75}"></td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     
+     </div>
+     <hr>
+     <div class=row>
+    
+    
+    
+    <div class="col-sm-3 border border-secondary">
+     <p class="h5 bg-primary text-white">
+     Model Evaluation
+     </p>
+     <ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Model Accuracy
+    <h5 class="h5"><span th:text="${#numbers.formatDecimal(accuracy.accuracy,1,2)}" class="badge badge-success badge-pill"></span></h5>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Random State
+    <h5 class="h5"><span th:text="${accuracy.random_state}"  class="badge badge-dark badge-pill"></span></h5>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Test Size
+    <h5 class="h5"><span th:text="${accuracy.test_size}"  class="badge badge-dark badge-pill"></span></h5>
+  </li>
+  </li>
+  
+</ul></div>
+    
+    
+    
+    
+     </div>
+
+    </div>
+
+   </div>
+
+
+   </main>
+  </div>
+ </div>
+
+ <!-- scripts -->
+ <div th:replace="fragments/_jsfooter :: scripts"></div>
+</body>
+</html>

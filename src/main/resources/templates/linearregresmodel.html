@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+
+<head th:replace="fragments/_header :: header"></head>
+
+<body>
+
+ <!-- Nav bar -->
+ <div th:replace="fragments/_navbar :: topNavBar"></div>
+
+ <div class="container-fluid">
+  <div class="row">
+
+   <!--side bar -->
+   <div th:replace="fragments/_sidenavbar :: sideNavBar"></div>
+
+   <!-- main content -->
+   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+   <!-- main nav bar -->
+   <div th:replace="fragments/_topnav :: topNav"></div>
+
+   <div class="row border border-secondary">
+
+    <!--     <div class="col-sm-6 border border-secondary"> -->
+    <!--      <div class=row> -->
+    <!--       <canvas class="my-4 w-100" id="myChart" width="900" height="200"></canvas> -->
+    <!--      </div> -->
+    <!--      <div class=row> -->
+    <!--       <h4>Section title</h4> -->
+    <!--       <div th:replace="fragments/_table :: dashtable"></div> -->
+    <!--      </div> -->
+    <!--     </div> -->
+
+    <div class="col-sm-12 border border-secondary">
+
+     <div class=row>
+     
+     <div class="col-sm-12 border border-secondary">
+     
+      <p class="h5 bg-primary text-white">Trained Model Statistical Summary</p>
+      <table id="gaussianClfSummary" class="display compact">
+       <thead>
+        <tr>
+         <th>No.</th>
+         <th>Feature Name</th>
+         <th>Count</th>
+         <th>Std.Dev.</th>
+         <th>Mean</th>
+         <th>Min</th>
+         <th>Max</th>
+         <th>25%</th>
+         <th>50%</th>
+         <th>75%</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr th:each="pd,status : ${pandaDescribe}">
+         <td th:text="${status.index + 1}"></td>
+         <td th:text="${pd.mapKey}"></td>
+         <td th:text="${pd.count}"></td>
+         <td th:text="${pd.std}"></td>
+         <td th:text="${pd.mean}"></td>
+         <td th:text="${pd.min}"></td>
+         <td th:text="${pd.max}"></td>
+         <td th:text="${pd.percent_25}"></td>
+         <td th:text="${pd.percent_50}"></td>
+         <td th:text="${pd.percent_75}"></td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     </div>
+     
+     <hr>
+     <div class=row>
+
+
+      <div class="col-sm-4 border border-secondary">
+       <p class="h5 bg-primary text-white">Model Evaluation</p>
+             <table id="regressionEvaluation" class="display">
+       <thead>
+        <tr>
+         <th>Metric</th>
+         <th>Value</th>
+         <th>Approx.</th>
+        </tr>
+       </thead>
+       <tbody>
+
+        <tr>
+         <td>Constant/Intercept</td>
+         <td th:text="${metrics.intercept}"></td>
+         <td th:text="${#numbers.formatDecimal(metrics.intercept,1,2)}"></td>
+        </tr>
+        <tr>
+         <td>Coefficient of X (Slope)</td>
+         <td th:text="${metrics.coefficient}"></td>
+         <td th:text="${#numbers.formatDecimal(metrics.coefficient,1,2)}"></td>
+        </tr>
+        <tr>
+         <td>Mean Absolute Error</td>
+         <td th:text="${metrics.mae}"></td>
+         <td th:text="${#numbers.formatDecimal(metrics.mae,1,2)}"></td>
+        </tr>
+        
+                <tr>
+         <td>Mean Squared Error</td>
+         <td th:text="${metrics.mse}"></td>
+         <td th:text="${#numbers.formatDecimal(metrics.mse,1,2)}"></td>
+        </tr>
+        
+                <tr>
+         <td>Root Mean Squared Error</td>
+         <td th:text="${metrics.rms}"></td>
+         <td th:text="${#numbers.formatDecimal(metrics.rms,1,2)}"></td>
+        </tr>
+        
+       </tbody>
+      </table>
+
+
+      </div>
+      
+      
+      
+            <div class="col-sm-8 border border-secondary">
+       <p class="h5 bg-primary text-white">Model Prediction - Actual &amp; Predicted Compared</p>
+       
+      <table id="predregres" class="display compact">
+       <thead>
+        <tr>
+         <th>No.</th>
+         <th>Payload</th>
+         <th>Throughput/Sec</th>
+         <th>Actual Running Time</th>
+         <th>Predicted Running Time</th>
+         <th>Variance(actual-predicted)</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr th:each="pd,status : ${workload}">
+         <td th:text="${status.index + 1}"></td>
+         <td th:text="${pd.numberOfRecords}"></td>
+         <td th:text="${pd.thruputpersec}"></td>
+         <td th:text="${pd.runningTime}"></td>
+         <td th:text="${#numbers.formatDecimal(pd.predtpps,1,2)}"></td>
+         <td th:text="${#numbers.formatDecimal(pd.variance,1,2)}"></td>
+        </tr>
+       </tbody>
+      </table>
+
+
+      </div>
+
+
+
+
+     </div>
+
+    </div>
+
+   </div>
+
+
+   </main>
+  </div>
+ </div>
+
+ <!-- scripts -->
+ <div th:replace="fragments/_jsfooter :: scripts"></div>
+</body>
+</html>

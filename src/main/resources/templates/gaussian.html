@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en">
+
+<head th:replace="fragments/_header :: header"></head>
+
+<body>
+
+ <!-- Nav bar -->
+ <div th:replace="fragments/_navbar :: topNavBar"></div>
+
+ <div class="container-fluid">
+  <div class="row">
+
+   <!--side bar -->
+   <div th:replace="fragments/_sidenavbar :: sideNavBar"></div>
+
+   <!-- main content -->
+   <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+
+   <!-- main nav bar -->
+   <div th:replace="fragments/_topnav :: topNav"></div>
+
+   <div class="row border border-secondary">
+
+<!--     <div class="col-sm-6 border border-secondary"> -->
+<!--      <div class=row> -->
+<!--       <canvas class="my-4 w-100" id="myChart" width="900" height="200"></canvas> -->
+<!--      </div> -->
+<!--      <div class=row> -->
+<!--       <h4>Section title</h4> -->
+<!--       <div th:replace="fragments/_table :: dashtable"></div> -->
+<!--      </div> -->
+<!--     </div> -->
+
+    <div class="col-sm-12 border border-secondary">
+
+     <div class=row>
+     <div class="col-sm-12 border border-secondary">
+     
+     <p class="h5 bg-primary text-white">
+     Model Statistical Summary
+     </p>
+      <table id="gaussianClfSummary" class="display compact">
+       <thead>
+        <tr>
+         <th>No.</th>
+         <th>Feature Name</th>
+         <th>Count</th>
+         <th>Std.Dev.</th>
+         <th>Mean</th>
+         <th>Min</th>
+         <th>Max</th>
+         <th>25%</th>
+         <th>50%</th>
+         <th>75%</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr th:each="pd,status : ${pandaDescribe}">
+         <td th:text="${status.index + 1}"></td>
+         <td th:text="${pd.mapKey}"></td>
+         <td th:text="${pd.count}"></td>
+         <td th:text="${pd.std}"></td>
+         <td th:text="${pd.mean}"></td>
+         <td th:text="${pd.min}"></td>
+         <td th:text="${pd.max}"></td>
+         <td th:text="${pd.percent_25}"></td>
+         <td th:text="${pd.percent_50}"></td>
+         <td th:text="${pd.percent_75}"></td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     
+     </div>
+     <hr>
+     <div class=row>
+     
+     <div class="col-sm-4 border border-secondary">
+               <p class="h5 bg-primary text-white">
+     Model Prediction Summary
+     </p>
+      <table id="table_id" class="display compact">
+       <thead>
+        <tr>
+         <th>Metric</th>
+         <th>Value</th>
+        </tr>
+       </thead>
+       <tbody>
+        <tr>
+         <td>Model Type</td>
+         <td th:text="${metrics.model_type}"></td>
+        </tr>
+        <tr>
+         <td>File Length</td>
+         <td th:text="${metrics.prediction_file_length}"></td>
+        </tr>
+        <tr>
+         <td>Machine Learning Model</td>
+         <td th:text="${metrics.model_name}"></td>
+        </tr>
+       </tbody>
+      </table>
+     </div>
+     
+     <div class="col-sm-4 border border-secondary">
+                    <p class="h5 bg-primary text-white">
+     Prediction Result
+     </p>
+     <ul class="list-group">
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Valid Customer Invoices
+    <h5 class="h5"><span th:text="${predvalid}" class="badge badge-success badge-pill"></span></h5>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Invalid Customer Invoices
+    <h5 class="h5"><span th:text="${predinvalid}"  class="badge badge-danger badge-pill"></span></h5>
+  </li>
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    Invalid Customer Invoices (Default)
+    <h5 class="h5"><span th:text="${predinvalidloaddef}"  class="badge badge-warning badge-pill"></span></h5>
+  </li>
+  
+    <li class="list-group-item d-flex justify-content-between align-items-center">
+    Total Evaluated Invoices
+    <h5 class="h5"><span th:text="${totalinvoices}"  class="badge badge-primary badge-pill"></span></h5>
+  </li>
+  
+</ul>
+     
+     </div>
+     
+     
+
+
+
+     </div>
+
+
+
+
+    </div>
+
+   </div>
+
+
+   </main>
+  </div>
+ </div>
+
+ <!-- scripts -->
+ <div th:replace="fragments/_jsfooter :: scripts"></div>
+</body>
+</html>
