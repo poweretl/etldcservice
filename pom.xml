@@ -31,21 +31,87 @@
       <groupId>ch.qos.logback</groupId>
       <artifactId>logback-classic</artifactId>
       <version>1.2.3</version>
-      <scope>provided</scope>
+
     </dependency>
-    
-    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
-<!-- <dependency> -->
-<!--     <groupId>org.slf4j</groupId> -->
-<!--     <artifactId>slf4j-simple</artifactId> -->
-<!--     <version>1.7.13</version> -->
-<!--     <scope>test</scope> -->
-<!-- </dependency> -->
-    
+
+    <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-api -->
+   <!-- <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-api</artifactId>
+      <version>1.7.25</version>
+    </dependency>
+
+
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>1.7.13</version>
+      <scope>provided</scope>
+    </dependency> -->
+
     <dependency>
       <groupId>com.sparkjava</groupId>
       <artifactId>spark-template-thymeleaf</artifactId>
       <version>2.5.5</version>
     </dependency>
   </dependencies>
+
+  <build>
+   <!-- <testResources>
+      <testResource>
+        <directory>/home/joshua/martian/kvworkspace/etl_yyc_impl/config</directory>
+      </testResource>
+    </testResources>
+    <resources>
+      <resource>
+        <directory>/home/joshua/martian/kvworkspace/etl_yyc_impl/config</directory>
+      </resource>
+    </resources> -->
+    <pluginManagement>
+      <plugins>
+        <!-- maven compiler plugin -->
+        <plugin>
+          <groupId>org.apache.maven.plugins</groupId>
+          <artifactId>maven-compiler-plugin</artifactId>
+          <version>3.7.0</version>
+          <configuration>
+            <source>1.8</source>
+            <target>1.8</target>
+            <verbose>false</verbose>
+          </configuration>
+        </plugin>
+        <!-- maven execution plugin -->
+        <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>exec-maven-plugin</artifactId>
+          <version>1.6.0</version>
+          <executions>
+            <execution>
+              <goals>
+                <goal>java</goal>
+              </goals>
+            </execution>
+          </executions>
+          <configuration>
+            <mainClass>com.kollect.etl.dcservice.AppMSDC</mainClass>
+            <addResourcesToClasspath>true</addResourcesToClasspath>
+            <arguments>
+              <argument></argument>
+              <argument></argument>
+            </arguments>
+          </configuration>
+        </plugin>
+      </plugins>
+    </pluginManagement>
+  </build>
+
+
+
+
+
+
+
+
+
+
 </project>
