@@ -21,17 +21,11 @@ import com.kollect.etl.dcservice.util.Path;
 import spark.ModelAndView;
 import spark.template.thymeleaf.ThymeleafTemplateEngine;
 
-public class AppMSDC {
+public class StartDataConnectorMicroService {
 
   public static final String CUSTOMER_PROP = "../ictzoneconfig/loadconfig/customer.properties";
   
-  public AppMSDC(){
-   //staticFileLocation("public");
-
-   //staticFileLocation(folder);
-  }
-  
-  
+  public StartDataConnectorMicroService(){}
 
   public static void main(String[] args) {
     port(8765);
@@ -51,12 +45,20 @@ public class AppMSDC {
           + "Max Memory: " + maxMem + "\n";
     });
 
-    get("/exescript", (req, res) -> {
+    get("/executeScript1", (req, res) -> {
       // new ProcessTaskExecutor().executeProcess(new ProcessArgBuilder().buildArg());
       ExecutorService executorService = Executors.newSingleThreadExecutor();
-      Future<String> future = executorService.submit(new ProcessTaskExecutor());
+      Future<Integer> future = executorService.submit(new ProcessTaskExecutor());
       System.out.println("Message returned");
       return future.get();
+    });
+
+
+    get("/executeScript2", (req, res) -> {
+      Integer result = new ProcessTaskExecutor().executeProcess(new ProcessArgBuilder().buildArg());
+
+      System.out.println("Message returned");
+      return result;
     });
 
     get("/hello", (request, response) -> {

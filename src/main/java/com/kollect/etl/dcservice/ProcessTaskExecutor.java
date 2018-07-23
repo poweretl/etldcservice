@@ -1,46 +1,45 @@
 package com.kollect.etl.dcservice;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-public class ProcessTaskExecutor  implements Callable<String> {
-  
-  // interpreter, Path, script name,
-  public void executeProcess(List<String> processArgs) throws IOException, InterruptedException {
+public class ProcessTaskExecutor  implements Callable<Integer> {
+
+  private static final Logger LOG = LoggerFactory.getLogger(ProcessTaskExecutor.class);
+
+
+  public int getExecutionStatus(final int waitTime){
+    String message;
+    if (waitTime == 0) {
+      message = "Successful execution";
+      LOG.debug("{}",message);
+    } else {
+      message = "Failure, an error occurred";
+      LOG.debug("{}",message);
+    }
+    return waitTime;
+  }
+
+
+  public Integer executeProcess(List<String> processArgs) throws IOException, InterruptedException {
     Process p = new ProcessBuilder(processArgs).start();
     System.out.println("Executing thread " + Thread.currentThread().getName());
-    int waitTime = p.waitFor();
-    if (waitTime == 0) {
-      System.out.println("Successful execution");
-    } else {
-      System.out.println("Failure, an error occurred");
-    }
-    try (BufferedReader reader = new BufferedReader(new InputStreamReader(p.getInputStream()))) {
-      String line = "";
-      while ((line = reader.readLine()) != null) {
-        System.out.println(line);
-      }
-    }
+    return getExecutionStatus(p.waitFor());
   }
 
   @Override
-  public String call() throws Exception {
+  public Integer call() throws IOException, InterruptedException {
     Process p = new ProcessBuilder(new ProcessArgBuilder().buildArg()).start();
     System.out.println("Executing thread " + Thread.currentThread().getName());
     int waitTime = p.waitFor();
-    String message = null;
-    if (waitTime == 0) {
-      message = "Successful execution";
-      System.out.println(message);
-      return message;
-    } else {
-      message = "Failure, an error occurred";
-      System.out.println(message);
-      return message;
-    }
+    return getExecutionStatus(waitTime);
+
   }
 
 }

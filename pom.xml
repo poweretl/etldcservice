@@ -93,7 +93,7 @@
             </execution>
           </executions>
           <configuration>
-            <mainClass>com.kollect.etl.dcservice.AppMSDC</mainClass>
+            <mainClass>com.kollect.etl.dcservice.StartDataConnectorMicroService</mainClass>
             <addResourcesToClasspath>true</addResourcesToClasspath>
             <arguments>
               <argument></argument>
